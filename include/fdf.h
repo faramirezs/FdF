@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/07 17:00:48 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:55:55 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 //ERROR messages
 #define MLX_ERROR -1
 
+# ifndef M_PI
+	#define M_PI 3.14159265358979323846
+#endif
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
@@ -42,6 +46,7 @@ typedef struct s_fdf    t_fdf;
 typedef struct s_map    t_map;
 typedef struct s_img    t_img;
 typedef struct s_bresenh    t_bresenh;
+typedef struct s_fpoint    t_fpoint;
 
 
 
@@ -65,19 +70,26 @@ struct s_img
 	int		endian;
 };
 
+struct s_fpoint
+{
+	float	x;
+	float	y;
+};
+
 struct s_fdf
 {
-    t_map   	**map;
-    int     	height;
-    int     	width;
-    //t_heap  	*heap;
-    t_img		img;
-    //t_angles	angles;
-    //t_keys		keys;
-    t_mlx   	mlx;
-    int     	max;
-    int     	min;
-    bool		pressed;
+	t_map		**map;
+	int			height;
+	int			width;
+	//t_heap	*heap;
+	t_img		img;
+	//t_angles	angles;
+	//t_keys	keys;
+	t_mlx		mlx;
+	int			max;
+	int			min;
+	bool		pressed;
+	t_fpoint	**fpoint;
 };
 
 struct s_map
@@ -86,9 +98,11 @@ struct s_map
     int             y;
     int             z;
     unsigned int    color;
+	float x2d;
+	float y2d;
 };
 
-struct		s_bresenh
+struct s_bresenh
 {
 	int		dx;
 	int		sx;
@@ -135,6 +149,9 @@ void read_map (t_fdf *fdf, char *filename);
 
 //minilibx
 int init_mlx(t_fdf *fdf);
+
+//isometric
+void isometric(t_map *point);
 
 
 #endif

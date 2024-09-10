@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/07 14:13:34 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:38:01 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ int render_rect(t_img *img, t_fdf *fdf)
 	j = 0;
 	if(!fdf->mlx.win_ptr)
 		return(MLX_ERROR);
-	while (j < WINDOW_HEIGHT * 0.5)
+	while (j <= WINDOW_HEIGHT)
 	{
-		i = 100;
-		while(i < WINDOW_WIDTH * 0.5)
+		i = 0;
+		while(i <= WINDOW_WIDTH)
 		{
+			//img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d, (*(fdf->map + j) + i)->color);
+			//printf("Drawing pixel at row %d, column %d\n", j, i);
 			img_pix_put(img, center_scale(((*(fdf->map) + j) + i)->x, fdf), center_scale(((*(fdf->map) + j) + i)->y, fdf), ((*(fdf->map) + j) + i)->color);
 			//img_pix_put(img, i, j, ((*(fdf->map) + j) + i)->color);
 			i++;

@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:10:28 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/06 12:00:04 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:35:54 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void fill_map (t_fdf *fdf, char * line, int j)
 		}
 		else
 			(*(fdf->map + j) + i)->z = ft_atoi(*(z_values + i));
+		isometric((*(fdf->map + j) + i));
+		printf("x2d: %f y2d: %f\n", (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d);
 		if((*(fdf->map + j) + i)->z > fdf->max)
 			fdf->max = (*(fdf->map + j) + i)->z;
 		if((*(fdf->map + j) + i)->z < fdf->min)
