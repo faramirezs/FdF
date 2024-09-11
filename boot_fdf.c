@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:50:35 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/04 16:28:10 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:32:19 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,6 @@ void boot_fdf(t_fdf *fdf, char *filename)
 	check_file_name(filename);
 	get_wh(fdf, filename);
 	read_map(fdf, filename);
+	x2dy2d(fdf);
+	printf("end of boot_fdf\n");
 }

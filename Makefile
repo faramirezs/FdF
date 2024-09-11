@@ -6,7 +6,7 @@
 #    By: alramire <alramire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 11:33:51 by alramire          #+#    #+#              #
-#    Updated: 2024/09/10 18:08:15 by alramire         ###   ########.fr        #
+#    Updated: 2024/09/11 19:22:33 by alramire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I./include
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
-SRC = main.c get_next_line.c get_next_line_utils.c utils.c boot_fdf.c ft_split.c map.c atoi.c init_mlx.c isometric.c
+SRC = main.c get_next_line.c get_next_line_utils.c utils.c boot_fdf.c ft_split.c map.c atoi.c init_mlx.c isometric.c bresenham.c
 OBJ = $(SRC:.c=.o)
 NAME = fdf
 

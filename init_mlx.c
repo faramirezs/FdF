@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/10 18:38:01 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:50:44 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 		*(unsigned int *)pixel = color;
 	}
 }
-int center_scale(int coordinate, t_fdf *fdf)
+/* int center_scale(int coordinate, t_fdf *fdf)
 {
 	float factor;
 	int offset;
@@ -40,7 +40,7 @@ int center_scale(int coordinate, t_fdf *fdf)
 		offset = (WINDOW_HEIGHT - (fdf->height * factor)) / 2;
 	}
 	return(coordinate * factor + offset);
-}
+} */
 
 void	render_background(t_img *img, int color)
 {
@@ -65,23 +65,62 @@ int render_rect(t_img *img, t_fdf *fdf)
 	int j;
 
 	j = 0;
-	if(!fdf->mlx.win_ptr)
-		return(MLX_ERROR);
-	while (j <= WINDOW_HEIGHT)
+	if (!fdf->mlx.win_ptr)
+		return (MLX_ERROR);
+	while (j < fdf->height)
 	{
 		i = 0;
-		while(i <= WINDOW_WIDTH)
+		while (i < fdf->width)
 		{
+			if (i < fdf->width - 1)
+			{
+				printf("Drawing line from (%f, %f) to (%f, %f)\n",
+					   (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d,
+					   (*(fdf->map + j) + (i + 1))->x2d, (*(fdf->map + j) + (i + 1))->y2d);
+				draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + j) + (i + 1)));
+			}
+			if (j < fdf->height - 1)
+			{
+				printf("Drawing line from (%f, %f) to (%f, %f)\n",
+					   (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d,
+					   (*(fdf->map + (j + 1)) + i)->x2d, (*(fdf->map + (j + 1)) + i)->y2d);
+				draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + (j + 1)) + i));
+			}
+			i++;
+		}
+		j++;
+	}
+	return (0);
+}
+
+
+/* int render_rect(t_img *img, t_fdf *fdf)
+{
+	int i;
+	int j;
+
+	j = 0;
+	if(!fdf->mlx.win_ptr)
+		return(MLX_ERROR);
+	while (j < fdf->height)
+	{
+		i = 0;
+		while(i < fdf->width)
+		{
+            if (i < fdf->width - 1)
+                draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + j) + (i + 1)));
+            if (j < fdf->height - 1)
+                draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + (j + 1)) + i));
 			//img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d, (*(fdf->map + j) + i)->color);
 			//printf("Drawing pixel at row %d, column %d\n", j, i);
-			img_pix_put(img, center_scale(((*(fdf->map) + j) + i)->x, fdf), center_scale(((*(fdf->map) + j) + i)->y, fdf), ((*(fdf->map) + j) + i)->color);
+			//img_pix_put(img, center_scale(((*(fdf->map) + j) + i)->x, fdf), center_scale(((*(fdf->map) + j) + i)->y, fdf), ((*(fdf->map) + j) + i)->color);
 			//img_pix_put(img, i, j, ((*(fdf->map) + j) + i)->color);
 			i++;
 		}
 	j++;
 	}
 	return (0);
-}
+} */
 
 int	render(t_fdf *fdf)
 {
@@ -89,10 +128,7 @@ int	render(t_fdf *fdf)
 		return (1);
 	render_background(&fdf->img, WHITE_PIXEL);
 	render_rect(&fdf->img, fdf);
-
-
 	mlx_put_image_to_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr, fdf->img.mlx_img, 0, 0);
-
 	return (0);
 }
 

@@ -7,6 +7,7 @@ int main(int ac, char **av)
 		return (-1);
 	ft_memset(&fdf, 0, sizeof(t_fdf));
 	boot_fdf(&fdf, *(av + 1));
+	//x2dy2dtesting(&fdf);
 	init_mlx(&fdf);
 	printf("Width: %i\n", fdf.width);
 	printf("Height: %i\n", fdf.height);

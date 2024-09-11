@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/10 17:55:55 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:28:25 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ struct s_fdf
 	t_mlx		mlx;
 	int			max;
 	int			min;
+	float		x2d_min;
+	float		y2d_min;
+	float		x2d_max;
+	float		y2d_max;
 	bool		pressed;
 	t_fpoint	**fpoint;
 };
@@ -149,9 +153,16 @@ void read_map (t_fdf *fdf, char *filename);
 
 //minilibx
 int init_mlx(t_fdf *fdf);
+void	img_pix_put(t_img *img, int x, int y, int color);
 
 //isometric
 void isometric(t_map *point);
+int x2dy2dtesting(t_fdf *fdf);
+int x2dy2d(t_fdf *fdf);
+void center_and_scale(t_fdf *fdf);
+
+//bresenham
+void draw_line(t_img *img, t_map *start, t_map *end);
 
 
 #endif
