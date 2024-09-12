@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:13:40 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 09:44:17 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:56:57 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,53 +80,27 @@ void draw_map(t_fdf *fdf)
 
 void draw_line(t_img *img, t_map *start, t_map *end, float x2d_min, float x2d_max, float y2d_min, float y2d_max)
 {
-	int dx;
-	int sx;
-	int dy;
-	int sy;
-	int err;
-	int e2;
+	int x0 = round(start->x2d);
+	int y0 = round(start->y2d);
+	int x1 = round(end->x2d);
+	int y1 = round(end->y2d);
 
-	// Check if the line is within the bounds
-	printf("Start: (%f, %f), End: (%f, %f), Min: (%f, %f), Max: (%f, %f)\n",
-		start->x2d, start->y2d, end->x2d, end->y2d, x2d_min, y2d_max, x2d_max, y2d_max);
+	int dx = abs(x1 - x0);
+	int dy = -abs(y1 - y0);
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = dx + dy;
 
-	if ((start->x2d < x2d_min && end->x2d < x2d_min) || (start->x2d > x2d_max && end->x2d > x2d_max) ||
-		(start->y2d < y2d_min && end->y2d < y2d_min) || (start->y2d > y2d_max && end->y2d > y2d_max))
-	{
-		printf("Line is out of bounds\n");
-		return;
-	}
-	dx = fabsf(end->x2d - start->x2d);
-	if(start->x2d < end->x2d)
-		sx = 1;
-	else
-		sx = -1;
-	dy = -fabs(end->y2d - start->y2d);
-	if(start->y2d < end->y2d)
-		sy = 1;
-	else
-		sy = -1;
-
-	err = dx + dy; // Initialize the error term
-	while (1)
-	{
-		// Draw the pixel only if it's within the bounds
-		if (start->x2d >= x2d_min && start->x2d <= x2d_max && start->y2d >= y2d_min && start->y2d <= y2d_max)
-			img_pix_put(img, start->x2d, start->y2d, RED_PIXEL);
-		if (start->x2d == end->x2d && start->y2d == end->y2d)
-			break;
-		e2 = 2 * err;
-		if (e2 >= dy)
-		{
-			err += dy;
-			start->x2d += sx;
+	while (1) {
+		if (x0 >= x2d_min && x0 <= x2d_max && y0 >= y2d_min && y0 <= y2d_max) {
+			img_pix_put(img, x0, y0, start->color);
 		}
-		if (e2 <= dx)
-		{
-			err += dx;
-			start->y2d += sy;
-		}
+
+		if (x0 == x1 && y0 == y1) break;
+
+		int e2 = 2 * err;
+		if (e2 >= dy) { err += dy; x0 += sx; }
+		if (e2 <= dx) { err += dx; y0 += sy; }
 	}
 }
 

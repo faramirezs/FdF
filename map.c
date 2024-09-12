@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:10:28 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 08:34:18 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:40:58 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ void fill_map (t_fdf *fdf, char * line, int j)
 				{
 					return;
 				}
-			(*(fdf->map + j) + i)->z = ft_atoi(*(z_colors + 0));
+			(*(fdf->map + j) + i)->z = ft_atoi(*(z_colors + 0)) * Z_SCALE_FACTOR;
 			//(*(fdf->map + j) + i)->color = (*(z_colors + 1));
 			(*(fdf->map + j) + i)->color = ft_atoi_base(*(z_colors + 1));
 			free(z_colors);
 		}
 		else
-			(*(fdf->map + j) + i)->z = ft_atoi(*(z_values + i));
+			(*(fdf->map + j) + i)->z = ft_atoi(*(z_values + i)) * Z_SCALE_FACTOR;
 		if((*(fdf->map + j) + i)->z > fdf->max)
 			fdf->max = (*(fdf->map + j) + i)->z;
 		if((*(fdf->map + j) + i)->z < fdf->min)

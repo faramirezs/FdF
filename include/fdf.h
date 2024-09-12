@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 10:32:44 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:40:29 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 800
 #define SCALE_FACTOR 0.9
-
+#define Z_SCALE_FACTOR 0.2
 #define RED_PIXEL 0xFF0000
-#define WHITE_PIXEL 0xFFFFFF
+#define BACKGROUND_COLOR 0xFFFFFF
 
 //ERROR messages
 #define MLX_ERROR -1

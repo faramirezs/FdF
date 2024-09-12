@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 09:57:21 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:10 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,9 @@ int	render(t_fdf *fdf)
 {
 	if (fdf->mlx.win_ptr == NULL)
 		return (1);
-	render_background(&fdf->img, WHITE_PIXEL);
-	//draw_map(fdf);
-	render_rect(&fdf->img, fdf);
+	render_background(&fdf->img, BACKGROUND_COLOR);
+	draw_map(fdf);
+	//render_rect(&fdf->img, fdf);
 	mlx_put_image_to_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr, fdf->img.mlx_img, 0, 0);
 	return (0);
 }
@@ -157,7 +157,13 @@ int	handle_keypress(int keysym, t_fdf * fdf)
     return (0);
 }
 
-
+int handle_close(t_fdf *fdf)
+{
+	mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+	fdf->mlx.win_ptr = NULL;
+	exit(0);
+	return (0);
+}
 
 int init_mlx(t_fdf *fdf)
 {
@@ -170,6 +176,7 @@ int init_mlx(t_fdf *fdf)
 		free(fdf->mlx.win_ptr);
 		return(MLX_ERROR);
 	}
+	mlx_hook(fdf->mlx.win_ptr, 17, 1L<<17, handle_close, fdf);
 	fdf->img.mlx_img = mlx_new_image(fdf->mlx.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.mlx_img, &fdf->img.bpp,
 		&fdf->img.width, &fdf->img.endian);
