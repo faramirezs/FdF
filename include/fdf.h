@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/11 19:28:25 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:32:44 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdio.h>
 
 # define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WINDOW_HEIGHT 800
 #define SCALE_FACTOR 0.9
 
 #define RED_PIXEL 0xFF0000
@@ -162,7 +162,9 @@ int x2dy2d(t_fdf *fdf);
 void center_and_scale(t_fdf *fdf);
 
 //bresenham
-void draw_line(t_img *img, t_map *start, t_map *end);
+//void draw_line(t_img *img, t_map *start, t_map *end);
+void draw_line(t_img *img, t_map *start, t_map *end, float x2d_min, float x2d_max, float y2d_min, float y2d_max);
+void draw_map(t_fdf *fdf);
 
 
 #endif

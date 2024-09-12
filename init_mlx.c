@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/11 19:50:44 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:57:21 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-int render_rect(t_img *img, t_fdf *fdf)
+/* int render_rect(t_img *img, t_fdf *fdf)
 {
 	int i;
 	int j;
@@ -91,10 +91,10 @@ int render_rect(t_img *img, t_fdf *fdf)
 		j++;
 	}
 	return (0);
-}
+} */
 
 
-/* int render_rect(t_img *img, t_fdf *fdf)
+int render_rect(t_img *img, t_fdf *fdf)
 {
 	int i;
 	int j;
@@ -107,11 +107,11 @@ int render_rect(t_img *img, t_fdf *fdf)
 		i = 0;
 		while(i < fdf->width)
 		{
-            if (i < fdf->width - 1)
-                draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + j) + (i + 1)));
-            if (j < fdf->height - 1)
-                draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + (j + 1)) + i));
-			//img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d, (*(fdf->map + j) + i)->color);
+            //if (i < fdf->width - 1)
+                //draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + j) + (i + 1)));
+            //if (j < fdf->height - 1)
+                //draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + (j + 1)) + i));
+			img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d, (*(fdf->map + j) + i)->color);
 			//printf("Drawing pixel at row %d, column %d\n", j, i);
 			//img_pix_put(img, center_scale(((*(fdf->map) + j) + i)->x, fdf), center_scale(((*(fdf->map) + j) + i)->y, fdf), ((*(fdf->map) + j) + i)->color);
 			//img_pix_put(img, i, j, ((*(fdf->map) + j) + i)->color);
@@ -120,13 +120,14 @@ int render_rect(t_img *img, t_fdf *fdf)
 	j++;
 	}
 	return (0);
-} */
+}
 
 int	render(t_fdf *fdf)
 {
 	if (fdf->mlx.win_ptr == NULL)
 		return (1);
 	render_background(&fdf->img, WHITE_PIXEL);
+	//draw_map(fdf);
 	render_rect(&fdf->img, fdf);
 	mlx_put_image_to_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr, fdf->img.mlx_img, 0, 0);
 	return (0);

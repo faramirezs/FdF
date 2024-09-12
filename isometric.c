@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:06 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/11 18:32:34 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:38:22 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void trans_pos_2d(t_fdf *fdf)
 {
 	int i;
 	int j;
-	int temp;
+	//int temp;
 	t_map *point;
 
 	j = 0;
@@ -90,13 +90,20 @@ void trans_pos_2d(t_fdf *fdf)
 		}
 	j++;
 	}
+	printf("Row: %i, Col %i. x2d_min: %f, y2d_min: %f\n", j, i, fdf->x2d_min, fdf->y2d_min);
 	printf("TRANSPOS DONE\n");
-	temp = fdf->x2d_max;
+	fdf->x2d_max = fdf->x2d_max - fdf->x2d_max;
+	fdf->x2d_min = fdf->x2d_min - fdf->x2d_min;
+	fdf->y2d_max = fdf->y2d_max - fdf->y2d_max;
+	fdf->y2d_min = fdf->y2d_min - fdf->y2d_min;
+	printf("Row: %i, Col %i. x2d_min: %f, y2d_min: %f\n", j, i, fdf->x2d_min, fdf->y2d_min);
+	/* temp = fdf->x2d_max;
 	fdf->x2d_max = fdf->x2d_min;
 	fdf->x2d_min = temp;
 	temp = fdf->y2d_max;
 	fdf->y2d_max = fdf->y2d_min;
-	fdf->y2d_min = temp;
+	fdf->y2d_min = temp; */
+	//x2dy2dtesting(fdf);
 	min_max_2d(fdf);
 }
 /* void center_and_scale(t_fdf *fdf)
@@ -136,24 +143,25 @@ void trans_pos_2d(t_fdf *fdf)
 void center_and_scale(t_fdf *fdf)
 {
 	int i, j;
-	float scale_factor;
+	float multiplier;
 	float x_offset, y_offset;
 	t_map *point;
 
 	// Calculate the scale factor
 	float x_range = fdf->x2d_max - fdf->x2d_min;
 	float y_range = fdf->y2d_max - fdf->y2d_min;
+	printf("x_range: %f, y_range: %f\n", x_range, y_range);
 
 	// Choose the smaller scale factor to ensure the points fit within the window
 	if (x_range > y_range) {
-		scale_factor = (WINDOW_WIDTH - 60) / x_range;
+		multiplier = (WINDOW_WIDTH * SCALE_FACTOR) / x_range;
 	} else {
-		scale_factor = (WINDOW_HEIGHT - 60) / y_range;
+		multiplier = (WINDOW_HEIGHT * SCALE_FACTOR) / y_range;
 	}
 
 	// Calculate the offsets to center the points
-	x_offset = (WINDOW_WIDTH - (x_range * scale_factor)) / 2 + (fdf->x2d_min * scale_factor);
-	y_offset = (WINDOW_HEIGHT - (y_range * scale_factor)) / 2 + (fdf->y2d_min * scale_factor);
+	x_offset = (WINDOW_WIDTH - (x_range * multiplier)) / 2;
+	y_offset = (WINDOW_HEIGHT - (y_range * multiplier)) / 2;
 
 	// Apply translation and scaling to each point
 	j = 0;
@@ -163,18 +171,21 @@ void center_and_scale(t_fdf *fdf)
 		while (i < fdf->width)
 		{
 			point = (*(fdf->map + j) + i);
-			point->x2d = point->x2d * scale_factor + x_offset;
-			point->y2d = point->y2d * scale_factor + y_offset;
-			printf("Row: %i, Col %i. x2d: %f, y2d: %f\n", j, i, point->x2d, point->y2d); // Print x2d and y2d after transformation
+			point->x2d = point->x2d * multiplier + x_offset;
+			point->y2d = point->y2d * multiplier + y_offset;
 			i++;
 		}
 		j++;
 	}
+	fdf->x2d_max = fdf->x2d_max * multiplier + x_offset;
+	fdf->x2d_min = fdf->x2d_min * multiplier + x_offset;
+	fdf->y2d_max = fdf->y2d_max * multiplier + y_offset;
+	fdf->y2d_min = fdf->y2d_min * multiplier + y_offset;
 }
 
 int x2dy2d(t_fdf *fdf)
 {
-		int i;
+	int i;
 	int j;
 
 	j = 0;
