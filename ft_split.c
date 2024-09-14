@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:27:33 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/04 13:31:27 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:39:42 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_words(char const *s, char d)
 	j = 0;
 	while (s[i])
 	{
-		if ((s[i] != d && (s[i - 1] == d || i == 0)))
+		if (s[i] != d && (i == 0 || s[i - 1] == d))
 			j++;
 		i++;
 	}

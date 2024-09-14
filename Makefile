@@ -6,12 +6,12 @@
 #    By: alramire <alramire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 11:33:51 by alramire          #+#    #+#              #
-#    Updated: 2024/09/11 19:22:33 by alramire         ###   ########.fr        #
+#    Updated: 2024/09/14 17:04:27 by alramire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./include
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a

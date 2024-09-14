@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:10:28 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 19:40:58 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:44:31 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void read_map (t_fdf *fdf, char *filename)
 			return;
 		}
 		fill_map(fdf, line, i);
+		free(line);
 		i++;
 	}
 }
@@ -59,6 +60,7 @@ void fill_map (t_fdf *fdf, char * line, int j)
 	if (!*(fdf->map + j))
 	{
 		return;
+		free_split(z_values);
 	}
 	while ( i < fdf->width)
 	{
@@ -84,8 +86,37 @@ void fill_map (t_fdf *fdf, char * line, int j)
 		if((*(fdf->map + j) + i)->z < fdf->min)
 			fdf->min = (*(fdf->map + j) + i)->z;
 		printf("x:%i y:%i z:%i color:%i\n", (*(fdf->map + j) + i)->x, (*(fdf->map + j) + i)->y, (*(fdf->map + j) + i)->z, (*(fdf->map + j) + i)->color);
-
 		i++;
 	}
-	free(z_values);
+	free_split(z_values);
+}
+
+void free_split(char **split)
+{
+	int i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+void free_map(t_fdf *fdf)
+{
+	int i;
+
+	i = 0;
+	while (i < fdf->height)
+	{
+		free(fdf->map[i]);
+		i++;
+	}
+	free(fdf->map);
+}
+
+void cleanup(t_fdf *fdf)
+{
+	free_map(fdf);
 }

@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 11:46:20 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/03 17:16:36 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:41:59 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*read_file(char *big_buffer, int fd)
 char	*get_next_line(int fd)
 {
 	static char	*big_buffer;
+	char		*temp;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
@@ -115,6 +116,16 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = extract_line(big_buffer);
-	big_buffer = obtain_remaining(big_buffer);
+	temp = obtain_remaining(big_buffer);
+	if (!temp)
+	{
+		return (NULL);
+	}
+	big_buffer = ft_strdup(temp);
+/* 	if (big_buffer && big_buffer[0] == '\0')
+	{
+		free(big_buffer);
+	} */
+	free(temp);
 	return (line);
 }

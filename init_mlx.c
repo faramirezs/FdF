@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 19:41:10 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:46:03 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,23 +144,30 @@ int	handle_input(int keysym, t_fdf * fdf)
     return (0);
 }
 
-
 int	handle_keypress(int keysym, t_fdf * fdf)
 {
     if (keysym == XK_Escape)
 	{
-        mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+        mlx_destroy_image(fdf->mlx.mlx_ptr,fdf->img.mlx_img);
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		mlx_destroy_display(fdf->mlx.mlx_ptr);
+		free(fdf->mlx.mlx_ptr);
 		fdf->mlx.win_ptr = NULL;
+		cleanup(fdf);
 	}
-
-    printf("Keypress: %d\n", keysym);
-    return (0);
+	printf("Keypress: %d\n", keysym);
+	exit(0);
+	return (0);
 }
 
 int handle_close(t_fdf *fdf)
 {
+	mlx_destroy_image(fdf->mlx.mlx_ptr,fdf->img.mlx_img);
 	mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+	mlx_destroy_display(fdf->mlx.mlx_ptr);
+	free(fdf->mlx.mlx_ptr);
 	fdf->mlx.win_ptr = NULL;
+	cleanup(fdf);
 	exit(0);
 	return (0);
 }

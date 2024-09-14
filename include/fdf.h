@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/12 19:40:29 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:45:01 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,7 @@ void center_and_scale(t_fdf *fdf);
 void draw_line(t_img *img, t_map *start, t_map *end, float x2d_min, float x2d_max, float y2d_min, float y2d_max);
 void draw_map(t_fdf *fdf);
 
-
+//free
+void free_split(char **split);
+void cleanup(t_fdf *fdf);
 #endif
