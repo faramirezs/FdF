@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/14 17:46:03 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:23:55 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,20 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 
-	if(x > 0 && x < WINDOW_WIDTH && y > 0 && y < WINDOW_HEIGHT)
+	if (x > 0 && x < WINDOW_WIDTH && y > 0 && y < WINDOW_HEIGHT)
 	{
 		pixel = img->addr + (y * img->width + x * (img->bpp / 8));
 		*(unsigned int *)pixel = color;
 	}
 }
-/* int center_scale(int coordinate, t_fdf *fdf)
-{
-	float factor;
-	int offset;
-
-	factor = 0;
-	offset = 0;
-	if (fdf->width > fdf->height)
-	{
-		factor = WINDOW_WIDTH * SCALE_FACTOR / fdf->width;
-		offset = (WINDOW_WIDTH - (fdf->width * factor)) / 2;
-	}
-	else
-	{
-		factor = WINDOW_HEIGHT * SCALE_FACTOR / fdf->height;
-		offset = (WINDOW_HEIGHT - (fdf->height * factor)) / 2;
-	}
-	return(coordinate * factor + offset);
-} */
 
 void	render_background(t_img *img, int color)
 {
-	int	i = 0;
-	int	j = 0;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	while (i < WINDOW_HEIGHT)
 	{
 		j = 0;
@@ -59,10 +42,10 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-/* int render_rect(t_img *img, t_fdf *fdf)
+int	render_rect(t_img *img, t_fdf *fdf)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	if (!fdf->mlx.win_ptr)
@@ -72,52 +55,11 @@ void	render_background(t_img *img, int color)
 		i = 0;
 		while (i < fdf->width)
 		{
-			if (i < fdf->width - 1)
-			{
-				printf("Drawing line from (%f, %f) to (%f, %f)\n",
-					   (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d,
-					   (*(fdf->map + j) + (i + 1))->x2d, (*(fdf->map + j) + (i + 1))->y2d);
-				draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + j) + (i + 1)));
-			}
-			if (j < fdf->height - 1)
-			{
-				printf("Drawing line from (%f, %f) to (%f, %f)\n",
-					   (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d,
-					   (*(fdf->map + (j + 1)) + i)->x2d, (*(fdf->map + (j + 1)) + i)->y2d);
-				draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + (j + 1)) + i));
-			}
+			img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j)
+					+ i)->y2d, (*(fdf->map + j) + i)->color);
 			i++;
 		}
 		j++;
-	}
-	return (0);
-} */
-
-
-int render_rect(t_img *img, t_fdf *fdf)
-{
-	int i;
-	int j;
-
-	j = 0;
-	if(!fdf->mlx.win_ptr)
-		return(MLX_ERROR);
-	while (j < fdf->height)
-	{
-		i = 0;
-		while(i < fdf->width)
-		{
-            //if (i < fdf->width - 1)
-                //draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + j) + (i + 1)));
-            //if (j < fdf->height - 1)
-                //draw_line(img, (*(fdf->map + j) + i), (*(fdf->map + (j + 1)) + i));
-			img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j) + i)->y2d, (*(fdf->map + j) + i)->color);
-			//printf("Drawing pixel at row %d, column %d\n", j, i);
-			//img_pix_put(img, center_scale(((*(fdf->map) + j) + i)->x, fdf), center_scale(((*(fdf->map) + j) + i)->y, fdf), ((*(fdf->map) + j) + i)->color);
-			//img_pix_put(img, i, j, ((*(fdf->map) + j) + i)->color);
-			i++;
-		}
-	j++;
 	}
 	return (0);
 }
@@ -128,73 +70,59 @@ int	render(t_fdf *fdf)
 		return (1);
 	render_background(&fdf->img, BACKGROUND_COLOR);
 	draw_map(fdf);
-	//render_rect(&fdf->img, fdf);
-	mlx_put_image_to_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr, fdf->img.mlx_img, 0, 0);
+	mlx_put_image_to_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr,
+		fdf->img.mlx_img, 0, 0);
 	return (0);
 }
 
-int	handle_input(int keysym, t_fdf * fdf)
+int	handle_input(int keysym, t_fdf *fdf)
 {
-    if (keysym == XK_Escape)
+	if (keysym == XK_Escape)
 	{
-        mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
 	}
-
-    printf("Keypress: %d\n", keysym);
-    return (0);
+	printf("Keypress: %d\n", keysym);
+	return (0);
 }
 
-int	handle_keypress(int keysym, t_fdf * fdf)
+int	handle_keypress(int keysym, t_fdf *fdf)
 {
-    if (keysym == XK_Escape)
+	if (keysym == XK_Escape)
 	{
-        mlx_destroy_image(fdf->mlx.mlx_ptr,fdf->img.mlx_img);
-		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
-		mlx_destroy_display(fdf->mlx.mlx_ptr);
-		free(fdf->mlx.mlx_ptr);
-		fdf->mlx.win_ptr = NULL;
 		cleanup(fdf);
 	}
 	printf("Keypress: %d\n", keysym);
-	exit(0);
 	return (0);
 }
 
-int handle_close(t_fdf *fdf)
+int	handle_close(t_fdf *fdf)
 {
-	mlx_destroy_image(fdf->mlx.mlx_ptr,fdf->img.mlx_img);
-	mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
-	mlx_destroy_display(fdf->mlx.mlx_ptr);
-	free(fdf->mlx.mlx_ptr);
-	fdf->mlx.win_ptr = NULL;
 	cleanup(fdf);
-	exit(0);
 	return (0);
 }
 
-int init_mlx(t_fdf *fdf)
+int	init_mlx(t_fdf *fdf)
 {
 	fdf->mlx.mlx_ptr = mlx_init();
 	if (!fdf->mlx.mlx_ptr)
 		return (MLX_ERROR);
-	fdf->mlx.win_ptr = mlx_new_window(fdf->mlx.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "fdf");
-	if(fdf->mlx.win_ptr == NULL)
+	fdf->mlx.win_ptr = mlx_new_window(fdf->mlx.mlx_ptr, WINDOW_WIDTH,
+			WINDOW_HEIGHT, "fdf");
+	if (fdf->mlx.win_ptr == NULL)
 	{
 		free(fdf->mlx.win_ptr);
-		return(MLX_ERROR);
+		return (MLX_ERROR);
 	}
-	mlx_hook(fdf->mlx.win_ptr, 17, 1L<<17, handle_close, fdf);
-	fdf->img.mlx_img = mlx_new_image(fdf->mlx.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx_hook(fdf->mlx.win_ptr, 17, 1L << 17, handle_close, fdf);
+	fdf->img.mlx_img = mlx_new_image(fdf->mlx.mlx_ptr, WINDOW_WIDTH,
+			WINDOW_HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.mlx_img, &fdf->img.bpp,
-		&fdf->img.width, &fdf->img.endian);
-
+			&fdf->img.width, &fdf->img.endian);
 	mlx_loop_hook(fdf->mlx.mlx_ptr, &render, fdf);
 	mlx_hook(fdf->mlx.win_ptr, KeyPress, KeyPressMask, &handle_keypress, fdf);
-
 	mlx_loop(fdf->mlx.mlx_ptr);
-	//mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
-	mlx_destroy_image(fdf->mlx.mlx_ptr,fdf->img.mlx_img);
+	mlx_destroy_image(fdf->mlx.mlx_ptr, fdf->img.mlx_img);
 	mlx_destroy_display(fdf->mlx.mlx_ptr);
 	free(fdf->mlx.mlx_ptr);
-	return 0;
+	return (0);
 }

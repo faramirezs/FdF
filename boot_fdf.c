@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:50:35 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/14 17:03:57 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:42:44 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_wh(t_fdf *fdf, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return ;
-	line = get_next_line(fd);
+	line = get_next_line(fd, 0);
 	if (!line)
 	{
 		close(fd);
@@ -49,13 +49,12 @@ void	get_wh(t_fdf *fdf, char *filename)
 	free(line);
 	while (true)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, 0);
 		if (!line)
 			break ;
 		fdf->height++;
 		free(line);
 	}
-	printf("H: %i, W: %i\n", fdf->height, fdf->width);
 }
 
 int	get_width(char *line)
@@ -85,5 +84,4 @@ void	boot_fdf(t_fdf *fdf, char *filename)
 	get_wh(fdf, filename);
 	read_map(fdf, filename);
 	x2dy2d(fdf);
-	printf("end of boot_fdf\n");
 }

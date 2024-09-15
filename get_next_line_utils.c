@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 11:46:04 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/14 17:46:26 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:03:49 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ char	*append_buffer(char *big_buffer, char *b2)
 
 	tmp = (char *)malloc(ft_strlen(big_buffer) + ft_strlen(b2) + 1);
 	if (!tmp)
-	{
-		free(big_buffer);
 		return (NULL);
-	}
 	i = 0;
 	while (big_buffer[i])
 	{
@@ -48,7 +45,8 @@ char	*append_buffer(char *big_buffer, char *b2)
 		j++;
 	}
 	tmp[i] = '\0';
-	return (free (big_buffer), tmp);
+	free(big_buffer);
+	return (tmp);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -58,6 +56,8 @@ char	*ft_strchr(const char *s, int c)
 
 	char_c = (char)c;
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == char_c)
