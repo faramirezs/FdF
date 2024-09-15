@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:52:51 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/04 15:54:42 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:57:04 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	ft_atoi(const char *str)
 	}
 	return (n * s);
 }
+
 int	ft_atoi_base(char *line)
 {
 	int		result;

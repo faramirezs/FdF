@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 11:23:55 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:40:51 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,6 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-int	render_rect(t_img *img, t_fdf *fdf)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	if (!fdf->mlx.win_ptr)
-		return (MLX_ERROR);
-	while (j < fdf->height)
-	{
-		i = 0;
-		while (i < fdf->width)
-		{
-			img_pix_put(img, (*(fdf->map + j) + i)->x2d, (*(fdf->map + j)
-					+ i)->y2d, (*(fdf->map + j) + i)->color);
-			i++;
-		}
-		j++;
-	}
-	return (0);
-}
-
 int	render(t_fdf *fdf)
 {
 	if (fdf->mlx.win_ptr == NULL)
@@ -72,32 +50,6 @@ int	render(t_fdf *fdf)
 	draw_map(fdf);
 	mlx_put_image_to_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr,
 		fdf->img.mlx_img, 0, 0);
-	return (0);
-}
-
-int	handle_input(int keysym, t_fdf *fdf)
-{
-	if (keysym == XK_Escape)
-	{
-		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
-	}
-	printf("Keypress: %d\n", keysym);
-	return (0);
-}
-
-int	handle_keypress(int keysym, t_fdf *fdf)
-{
-	if (keysym == XK_Escape)
-	{
-		cleanup(fdf);
-	}
-	printf("Keypress: %d\n", keysym);
-	return (0);
-}
-
-int	handle_close(t_fdf *fdf)
-{
-	cleanup(fdf);
 	return (0);
 }
 

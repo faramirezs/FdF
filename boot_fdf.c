@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:50:35 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 11:42:44 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:20:01 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	check_file_name(char *filename)
 		return ;
 	}
 }
+
 void	get_wh(t_fdf *fdf, char *filename)
 {
 	char	*line;

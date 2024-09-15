@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:47:48 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/04 16:19:36 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:48:42 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	while ((s1[i] || s2[i]) && i < n)
 	{
-		if ((unsigned char) s1[i] != (unsigned char) s2[i])
-			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
 	return (0);
 }
+
 void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t			i;
@@ -36,21 +37,3 @@ void	*ft_memset(void *s, int c, size_t n)
 		ptr[i++] = (unsigned char)c;
 	return (s);
 }
-
-//char	*ft_strchr(const char *s, int c)
-//{
-//	char			char_c;
-//	unsigned int	i;
-//
-//	char_c = (char)c;
-//	i = 0;
-//	while (s[i])
-//	{
-//		if (s[i] == char_c)
-//			return ((char *)&s[i]);
-//		i++;
-//	}
-//	if (s[i] == char_c)
-//		return ((char *)&s[i]);
-//	return (NULL);
-//}

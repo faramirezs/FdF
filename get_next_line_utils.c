@@ -6,11 +6,11 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 11:46:04 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 10:03:49 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:32:46 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "include/fdf.h"
+#include "include/fdf.h"
 
 size_t	ft_strlen(char const *s)
 {

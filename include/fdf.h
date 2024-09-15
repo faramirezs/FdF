@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 15:17:59 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:02:54 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ char						*ft_strchr(const char *s, int c);
 char						*ft_strdup(const char *s1);
 void						*ft_calloc(size_t count, size_t size);
 char						*get_next_line(int fd, int free_static);
+char						*obtain_remaining(char *big_buffer);
+char						*extract_line(char *big_buffer);
 
 // Utils
 int							ft_strncmp(const char *s1, const char *s2,
@@ -151,9 +153,12 @@ void						img_pix_put(t_img *img, int x, int y, int color);
 
 // isometric
 void						isometric(t_map *point);
-int							x2dy2dtesting(t_fdf *fdf);
 int							x2dy2d(t_fdf *fdf);
 void						center_and_scale(t_fdf *fdf);
+void						min_max_2d(t_fdf *fdf);
+void						trans_pos_2d(t_fdf *fdf);
+void						apply_transformations(t_fdf *fdf, float multiplier,
+								float x_offset, float y_offset);
 
 // bresenham
 
@@ -161,7 +166,10 @@ void						draw_line(t_img *img, t_map *start, t_map *end,
 								t_fdf *fdf);
 void						draw_map(t_fdf *fdf);
 
-// free
+// cleanup and close mlx
 void						free_split(char **split);
 void						cleanup(t_fdf *fdf);
+int							handle_keypress(int keysym, t_fdf *fdf);
+int							handle_close(t_fdf *fdf);
+
 #endif

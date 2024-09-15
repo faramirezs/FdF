@@ -6,15 +6,16 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 11:33:42 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 11:33:56 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:56:23 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "include/fdf.h"
+#include "include/fdf.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_fdf fdf;
+	t_fdf	fdf;
+
 	if (ac != 2)
 		return (-1);
 	ft_memset(&fdf, 0, sizeof(t_fdf));
