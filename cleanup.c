@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:37:56 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 15:39:05 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:42:10 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	handle_keypress(int keysym, t_fdf *fdf)
 	if (keysym == XK_Escape)
 	{
 		cleanup(fdf);
+		exit(0);
 	}
-	printf("Keypress: %d\n", keysym);
 	return (0);
 }
 
 int	handle_close(t_fdf *fdf)
 {
 	cleanup(fdf);
-	return (0);
+	exit(0);
 }
 
 void	free_split(char **split)
@@ -56,8 +56,73 @@ void	free_map(t_fdf *fdf)
 
 void	cleanup(t_fdf *fdf)
 {
-	mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
-	fdf->mlx.win_ptr = NULL;
+	if (fdf->mlx.win_ptr)
+	{
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		fdf->mlx.win_ptr = NULL;
+	}
+	if (fdf->img.mlx_img)
+	{
+		mlx_destroy_image(fdf->mlx.mlx_ptr, fdf->img.mlx_img);
+		fdf->img.mlx_img = NULL;
+	}
+	if (fdf->mlx.mlx_ptr)
+	{
+		mlx_destroy_display(fdf->mlx.mlx_ptr);
+		free(fdf->mlx.mlx_ptr);
+		fdf->mlx.mlx_ptr = NULL;
+	}
 	free_map(fdf);
 	get_next_line(-1, 1);
 }
+
+/* void	cleanup(t_fdf *fdf)
+{
+	if (fdf->mlx.win_ptr)
+	{
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		fdf->mlx.win_ptr = NULL;
+	}
+	free_map(fdf);
+	get_next_line(-1, 1);
+	mlx_loop_end(fdf->mlx.mlx_ptr);
+	mlx_destroy_display(fdf->mlx.mlx_ptr);
+	free(fdf->mlx.mlx_ptr);
+} */
+
+/* 	void	cleanup(t_fdf *fdf)
+	{
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		fdf->mlx.win_ptr = NULL;
+		free_map(fdf);
+		get_next_line(-1, 1);
+	}
+ */
+
+/* void	cleanup(t_fdf *fdf)
+{
+	if (fdf->mlx.win_ptr)
+	{
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		fdf->mlx.win_ptr = NULL;
+	}
+	free_map(fdf);
+	get_next_line(-1, 1);
+} */
+/* void	cleanup(t_fdf *fdf)
+{
+	if (fdf->mlx.win_ptr)
+	{
+		mlx_destroy_window(fdf->mlx.mlx_ptr, fdf->mlx.win_ptr);
+		fdf->mlx.win_ptr = NULL; // Ensure you set it to NULL after destroying
+	}
+	if (fdf->mlx.mlx_ptr)
+	{
+		mlx_destroy_display(fdf->mlx.mlx_ptr);
+			// Only destroy the display if valid
+		free(fdf->mlx.mlx_ptr);
+		fdf->mlx.mlx_ptr = NULL;
+	}
+	free_map(fdf);
+	get_next_line(-1, 1); // Assuming this is to clear some buffer or fd
+} */

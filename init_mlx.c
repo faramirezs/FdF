@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 10:14:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 15:40:51 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:16:31 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	init_mlx(t_fdf *fdf)
 			WINDOW_HEIGHT, "fdf");
 	if (fdf->mlx.win_ptr == NULL)
 	{
+		mlx_destroy_display(fdf->mlx.mlx_ptr);
 		free(fdf->mlx.win_ptr);
 		return (MLX_ERROR);
 	}
@@ -73,8 +74,5 @@ int	init_mlx(t_fdf *fdf)
 	mlx_loop_hook(fdf->mlx.mlx_ptr, &render, fdf);
 	mlx_hook(fdf->mlx.win_ptr, KeyPress, KeyPressMask, &handle_keypress, fdf);
 	mlx_loop(fdf->mlx.mlx_ptr);
-	mlx_destroy_image(fdf->mlx.mlx_ptr, fdf->img.mlx_img);
-	mlx_destroy_display(fdf->mlx.mlx_ptr);
-	free(fdf->mlx.mlx_ptr);
 	return (0);
 }

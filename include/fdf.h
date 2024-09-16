@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:40:30 by alramire          #+#    #+#             */
-/*   Updated: 2024/09/15 17:02:54 by alramire         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:06:04 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,10 @@ struct						s_bresenh
 	int						err;
 };
 
+//checks
+void						check_file_name(char *filename);
+void						check_width(t_fdf *fdf, char *filename);
+
 // Get_next_line
 size_t						ft_strlen(char const *s);
 char						*append_buffer(char *big_buffer, char *b2);
@@ -171,5 +175,6 @@ void						free_split(char **split);
 void						cleanup(t_fdf *fdf);
 int							handle_keypress(int keysym, t_fdf *fdf);
 int							handle_close(t_fdf *fdf);
+void						free_map(t_fdf *fdf);
 
 #endif
